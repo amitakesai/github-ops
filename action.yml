@@ -1,13 +1,32 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'GitHub-Ops'
+description: 'GitHub Operations'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  org-name:  # id of input
+    description: 'Name of the organization in which secrets needs to be added'
+    required: true  
+  repo-name:  # id of input
+    description: 'Name of the repository in which secrets needs to be added'
+    required: true    
+  token:  # id of input
+    description: 'Github Token'
     required: true
-    default: '1000'
+  private:  # id of input
+    description: 'true if repo is private; default is false'
+    default: "false"
+  operation:  # id of input
+    description: 'Github operation to be performed: create-repo, rename-branch, create-branch, branch-protect'
+    required: true 
+  curr-branch-name:
+    description: 'For branch rename, current branch name; under operation rename-branch'  
+  new-branch-name:  # id of input
+    description: 'For branch rename, new branch name; under operation rename-branch'
+  branch-name:  # id of input
+    description: 'For branch create, branch name to be created; under operation create-branch'
+  branch-ref-name:  # id of input
+    description: 'For branch create, branch name ref from which the new branch is created; under operation create-branch'
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  message: # output will be available to future steps
+    description: 'Success message'
 runs:
   using: 'node16'
   main: 'dist/index.js'
